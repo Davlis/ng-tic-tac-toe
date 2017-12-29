@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-landing-component',
+  selector: 'landing-component',
   templateUrl: './landing-component.component.html',
   styleUrls: ['./landing-component.component.css']
 })

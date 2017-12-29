@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-stats-list-component',
+  selector: 'stats-list-component',
   templateUrl: './stats-list-component.component.html',
   styleUrls: ['./stats-list-component.component.css']
 })
