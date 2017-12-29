@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-landing-component',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponentComponent implements OnInit {
 
+  public loginForm: FormGroup;
+  public registerForm: FormGroup;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public register(): void {
+  }
+
+  public login(): void {
+  }
+
+  public emitSuccess(): void {
   }
 
 }

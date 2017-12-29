@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-stats-list-component',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatsListComponentComponent implements OnInit {
 
+  public onBack: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public fetchStats(): void {
+  }
+
+  public back(): void {
   }
 
 }

@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomListComponentComponent implements OnInit {
 
+  public rooms: any[] = [];
+  public createRoomModal: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
