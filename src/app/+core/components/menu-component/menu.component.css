@@ -1,0 +1,27 @@
+.menu-container {
+  display: flex;
+}
+
+.menu-list {
+
+  padding-top: 100px;
+
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+
+  width: 300px
+}
+
+.room-button button, .stats-button button {
+  border: 1px solid black;
+  padding: 10px 30px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: firebrick;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+
+  margin-bottom: 20px;
+}
