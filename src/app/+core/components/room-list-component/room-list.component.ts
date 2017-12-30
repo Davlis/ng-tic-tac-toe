@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'room-list-component',
-  templateUrl: './room-list-component.component.html',
-  styleUrls: ['./room-list-component.component.css']
+  templateUrl: './room-list.component.html',
+  styleUrls: ['./room-list.component.css']
 })
-export class RoomListComponentComponent implements OnInit {
+export class RoomListComponent implements OnInit {
 
   public rooms: any[] = [];
   public createRoomModal: boolean = false;

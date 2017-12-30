@@ -2,10 +2,10 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'menu-component',
-  templateUrl: './menu-component.component.html',
-  styleUrls: ['./menu-component.component.css']
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
 })
-export class MenuComponentComponent implements OnInit {
+export class MenuComponent implements OnInit {
 
   public roomListEnabled: boolean = false;
   public statsListEnabled: boolean = false;

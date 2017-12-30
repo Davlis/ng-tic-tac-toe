@@ -1,30 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { Ng2Webstorage } from 'ngx-webstorage';
 
 import { AppComponent } from './app.component';
-import { LandingComponentComponent } from './landing-component/landing-component.component';
-import { RoomComponentComponent } from './room-component/room-component.component';
-import { HeaderComponentComponent } from './header-component/header-component.component';
-import { StatsListComponentComponent } from './stats-list-component/stats-list-component.component';
-import { MenuComponentComponent } from './menu-component/menu-component.component';
-import { RoomListComponentComponent } from './room-list-component/room-list-component.component';
-import { BoardComponentComponent } from './board-component/board-component.component';
+
+import { CoreModule } from './+core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponentComponent,
-    RoomComponentComponent,
-    HeaderComponentComponent,
-    StatsListComponentComponent,
-    MenuComponentComponent,
-    RoomListComponentComponent,
-    BoardComponentComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
+    Ng2Webstorage,
+    CoreModule,
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,10 +2,10 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'stats-list-component',
-  templateUrl: './stats-list-component.component.html',
-  styleUrls: ['./stats-list-component.component.css']
+  templateUrl: './stats-list.component.html',
+  styleUrls: ['./stats-list.component.css']
 })
-export class StatsListComponentComponent implements OnInit {
+export class StatsListComponent implements OnInit {
 
   public onBack: EventEmitter<any> = new EventEmitter();
 
