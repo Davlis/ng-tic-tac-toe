@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'stats-list-component',
@@ -7,6 +7,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 })
 export class StatsListComponent implements OnInit {
 
+  @Output()
   public onBack: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
@@ -18,6 +19,7 @@ export class StatsListComponent implements OnInit {
   }
 
   public back(): void {
+    this.onBack.emit();
   }
 
 }

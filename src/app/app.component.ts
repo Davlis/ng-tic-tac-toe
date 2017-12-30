@@ -31,6 +31,7 @@ export class AppComponent {
   public back(): void {
   }
 
-  public viewChangeListener() {}
+  public viewChangeListener() {
+  }
 
 }

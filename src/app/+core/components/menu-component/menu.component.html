@@ -1,13 +1,13 @@
-<div class="menu-container">
+<div class="menu-container" *ngIf="!roomListEnabled && !statsListEnabled">
   <div class="menu-list">
     <div class="room-button">
-      <button>Rooms</button>
+      <button (click)="showRoomList()">Rooms</button>
     </div>
     <div class="stats-button">
-      <button>Stats</button>
+      <button (click)="showStatsList()">Stats</button>
     </div>
   </div>
 </div>
 
-<room-list-component></room-list-component>
-<stats-list-component></stats-list-component>
+<room-list-component *ngIf="roomListEnabled" (onBack)="onBack()"></room-list-component>
+<stats-list-component *ngIf="statsListEnabled" (onBack)="onBack()"></stats-list-component>

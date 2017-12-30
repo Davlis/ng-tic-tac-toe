@@ -17,11 +17,17 @@ export class MenuComponent implements OnInit {
   }
 
   public showRoomList(): void {
+    this.roomListEnabled = true;
   }
 
   public showStatsList(): void {
+    this.statsListEnabled = true;
   }
 
   public onBack(): void {
+
+    console.log('onBack');
+
+    this.roomListEnabled = this.statsListEnabled = false;
   }
 }

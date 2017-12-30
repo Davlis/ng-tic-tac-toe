@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'room-list-component',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./room-list.component.css']
 })
 export class RoomListComponent implements OnInit {
+
+  @Output()
+  public onBack: EventEmitter<any> = new EventEmitter();
 
   public rooms: any[] = [];
   public createRoomModal: boolean = false;
@@ -15,4 +18,7 @@ export class RoomListComponent implements OnInit {
   ngOnInit() {
   }
 
+  public back(): void {
+    this.onBack.emit();
+  }
 }
