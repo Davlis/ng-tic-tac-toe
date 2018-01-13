@@ -9,7 +9,7 @@ export class MenuComponent implements OnInit {
 
   public roomListEnabled: boolean = false;
   public statsListEnabled: boolean = false;
-  
+
   @Output()
   public showRoom: EventEmitter<any> = new EventEmitter();
 
@@ -29,4 +29,8 @@ export class MenuComponent implements OnInit {
   public onBack(): void {
     this.roomListEnabled = this.statsListEnabled = false;
   }
+
+ public emitShowRoom($event): void {
+   this.showRoom.emit($event);
+ }
 }

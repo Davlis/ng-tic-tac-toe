@@ -19,7 +19,10 @@ export class AppComponent {
   public showMenu(): void {
   }
 
-  public showRoom(): void {
+  public showRoom(id): void {
+    location.hash = id;
+    this.menuEnabled = false;
+    this.roomEnabled = true;
   }
 
   public showBoard(): void {
@@ -33,7 +36,12 @@ export class AppComponent {
 
   public viewChangeListener($event): void {
 
+    if ($event.includes('showRoom')) {
+      this.showRoom($event.replace('showRoom',''));
+    }
+
     if ($event === 'roomLeave') {
+      location.hash = '';
       this.roomEnabled = false;
       this.menuEnabled = true;
     }

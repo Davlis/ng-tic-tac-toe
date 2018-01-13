@@ -9,5 +9,5 @@
   </div>
 </div>
 
-<room-list-component *ngIf="roomListEnabled" (onBack)="onBack()"></room-list-component>
+<room-list-component *ngIf="roomListEnabled" (onBack)="onBack()" (onJoin)="showRoom.emit($event)"></room-list-component>
 <stats-list-component *ngIf="statsListEnabled" (onBack)="onBack()"></stats-list-component>

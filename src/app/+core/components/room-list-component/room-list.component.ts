@@ -34,10 +34,10 @@ export class RoomListComponent implements OnInit {
   }
 
   public joinRoom(): void {
-    //
+    this.onJoin.emit('id');
   }
 
   public createRoom(): void {
-
+    this.onCreate.emit('id');
   }
 }
