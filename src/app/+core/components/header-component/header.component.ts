@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public emitLogout() {
-    this.onLogout.emit();
+    this.onLogout.emit('onLogout');
   }
 
   public logout() {

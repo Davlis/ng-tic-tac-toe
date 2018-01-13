@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
 
+export const VIEWS = [
+  'landingEnabled',
+  'menuEnabled',
+  'roomEnabled',
+  'boardEnabled', 
+]
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -30,32 +37,40 @@ export class AppComponent {
   public back(): void {
   }
 
+  private showOnly(view) {
+    VIEWS.filter(v => {
+      if (v === view) {
+        this[v] = true;
+      } else {
+        this[v] = false;
+      }
+    });
+  }
+
   public viewChangeListener($event): void {
 
     if ($event.includes('showRoom')) {
       const id = $event.replace('showRoom', '');
       location.hash = id;
-      this.menuEnabled = false;
-      this.roomEnabled = true;
+
+      this.showOnly('roomEnabled');
     }
 
     if ($event === 'roomLeave') {
       location.hash = '';
-      this.roomEnabled = false;
-      this.menuEnabled = true;
+      this.showOnly('menuEnabled');
     }
 
     if ($event === 'logged') {
-      this.landingEnabled = false;
-      this.menuEnabled = true;
+      this.showOnly('menuEnabled');
     }
 
-
-    console.log($event)
-
     if ($event === 'gameStart') {
-      this.roomEnabled = false;
-      this.boardEnabled = true;
+      this.showOnly('boardEnabled');
+    }
+
+    if ($event === 'onLogout') {
+      this.showOnly('landingEnabled');
     }
   }
 
