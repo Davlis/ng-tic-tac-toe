@@ -3,12 +3,16 @@
   justify-content: space-between;
   width: 100%;
   border: 1px solid whitesmoke;
-  margin-bottom: 40px
+  margin-bottom: 40px;
+
+ 
+  height: 36px;
+  align-items: center;
 }
 
-.logo {
-  font-size: 18px;
-  color: blueviolet;
+.logo img, .logo img:after {
+  content: url("/assets/img/logo.png");
+  height: 36px;
 }
 
 .logout-button {
