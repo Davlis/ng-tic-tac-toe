@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'room-component',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomComponent implements OnInit {
 
+  @Output()
+  public onLeave: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public leave(): void {
+    this.onLeave.emit('roomLeave');
   }
 
 }

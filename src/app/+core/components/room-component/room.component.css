@@ -1,0 +1,70 @@
+.container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+}
+
+.room-container {
+
+  margin: 0 auto;
+
+  width: 800px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.room-mates {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.room-mate {
+  border: 1px solid black;
+  flex: 39;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
+}
+
+.room-mate >* {
+  height: 50px;
+}
+
+.divider {
+  border: 1px solid black;
+  flex: 3;
+}
+
+
+
+
+
+
+
+
+
+
+
+button {
+  border: 1px solid black;
+  padding: 10px 30px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: firebrick;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+
+  margin-bottom: 20px;
+}

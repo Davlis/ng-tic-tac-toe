@@ -48,6 +48,10 @@
   justify-content: center;
 }
 
+.row.selected {
+  background-color: grey;
+}
+
 .button-container {
   margin: 0 auto;
   margin-top: 20px;
@@ -59,6 +63,12 @@
 .button-container >* {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.create-room {
+  min-width: 700px;
+  max-width: 896px;
+  margin: auto;
 }
 
 button {

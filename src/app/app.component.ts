@@ -31,7 +31,17 @@ export class AppComponent {
   public back(): void {
   }
 
-  public viewChangeListener() {
+  public viewChangeListener($event): void {
+
+    if ($event === 'roomLeave') {
+      this.roomEnabled = false;
+      this.menuEnabled = true;
+    }
+
+    if ($event === 'logged') {
+      this.landingEnabled = false;
+      this.menuEnabled = true;
+    }
   }
 
 }

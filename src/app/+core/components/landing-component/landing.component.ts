@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
+
+  @Output()
+  public onSuccess: EventEmitter<any> = new EventEmitter();
 
   public registerForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.email]],
@@ -25,12 +28,17 @@ export class LandingComponent implements OnInit {
   }
 
   public register(): void {
+    // for now
+    this.emitSuccess();
   }
 
   public login(): void {
+    // for now
+    this.emitSuccess();
   }
 
   public emitSuccess(): void {
+    this.onSuccess.emit('logged');
   }
 
 }

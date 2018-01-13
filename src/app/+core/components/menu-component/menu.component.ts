@@ -25,9 +25,6 @@ export class MenuComponent implements OnInit {
   }
 
   public onBack(): void {
-
-    console.log('onBack');
-
     this.roomListEnabled = this.statsListEnabled = false;
   }
 }

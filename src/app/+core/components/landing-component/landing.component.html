@@ -1,12 +1,12 @@
 <div class="landing-container">
   <div class="logo"></div>
   <div class="form-container">
-    <form class="login-form">
+    <form class="login-form" (submit)="login()">
       <input type="text" placeholder="Email"/>
       <input type="password" placeholder="Password"/>
       <button type="submit">Log in</button>
     </form>
-    <form class="register-form">
+    <form class="register-form" (submit)="register()">
       <input type="text" placeholder="Email"/>
       <input type="text" placeholder="Nickname"/>
       <input type="password" placeholder="Password"/>
