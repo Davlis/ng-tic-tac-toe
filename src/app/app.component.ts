@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
 
   public landingEnabled: boolean = true;
   public menuEnabled: boolean = false;
@@ -20,9 +19,6 @@ export class AppComponent {
   }
 
   public showRoom(id): void {
-    location.hash = id;
-    this.menuEnabled = false;
-    this.roomEnabled = true;
   }
 
   public showBoard(): void {
@@ -37,7 +33,10 @@ export class AppComponent {
   public viewChangeListener($event): void {
 
     if ($event.includes('showRoom')) {
-      this.showRoom($event.replace('showRoom',''));
+      const id = $event.replace('showRoom', '');
+      location.hash = id;
+      this.menuEnabled = false;
+      this.roomEnabled = true;
     }
 
     if ($event === 'roomLeave') {
@@ -49,6 +48,14 @@ export class AppComponent {
     if ($event === 'logged') {
       this.landingEnabled = false;
       this.menuEnabled = true;
+    }
+
+
+    console.log($event)
+
+    if ($event === 'gameStart') {
+      this.roomEnabled = false;
+      this.boardEnabled = true;
     }
   }
 

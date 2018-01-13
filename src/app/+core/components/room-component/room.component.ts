@@ -30,6 +30,7 @@ export class RoomComponent implements OnInit {
   }
 
   public startGame(): void {
+    this.onStart.emit('gameStart');
   }
 
   public kickUser(): void {
@@ -42,6 +43,8 @@ export class RoomComponent implements OnInit {
   }
 
   public getInviteLink(): void {
+    const id = location.hash;
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", id.replace('#',''));
   }
 
   public leave(): void {
