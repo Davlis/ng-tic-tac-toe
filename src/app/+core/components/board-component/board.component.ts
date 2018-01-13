@@ -27,13 +27,36 @@ export class BoardComponent implements OnInit {
   public onMove(): void {
   }
 
-  public renderMove(): void {
+  public renderMove(x, y): void {
+
+    const boardRows = document.getElementsByClassName('board-row');
+
+    let square = boardRows[x].firstElementChild;
+
+    for (let i = 0; i < 3; ++i) {
+
+      if (square.attributes['data-index'].value === ""+y) {
+        square['innerHTML'] = 'X';
+        break;
+      }
+      square = square.nextElementSibling;
+    }
   }
 
   public canMove(): void {
   }
 
   public setGameState(): void {
+  }
+
+  private createRange(i): number[] {
+    const arr = []
+
+    while(i--) { 
+      arr.push(i); 
+    }
+
+    return arr;
   }
 
 }
