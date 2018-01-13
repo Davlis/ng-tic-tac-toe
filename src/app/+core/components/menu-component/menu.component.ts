@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'menu-component',
@@ -9,6 +9,8 @@ export class MenuComponent implements OnInit {
 
   public roomListEnabled: boolean = false;
   public statsListEnabled: boolean = false;
+  
+  @Output()
   public showRoom: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
