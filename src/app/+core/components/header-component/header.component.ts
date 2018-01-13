@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { UserService } from '../../services';
 
 @Component({
   selector: 'header-component',
@@ -7,17 +8,21 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  @Output()
   public onLogout: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(public userService: UserService,) { }
 
   ngOnInit() {
   }
 
   public emitLogout() {
+    this.onLogout.emit();
   }
 
   public logout() {
+    this.userService.logout();
+    this.emitLogout();
   }
 
 }
