@@ -71,7 +71,7 @@
   margin: auto;
 }
 
-button {
+button:not(.unset) {
   border: 1px solid black;
   padding: 10px 30px;
   cursor: pointer;
@@ -82,4 +82,13 @@ button {
   width: 100%;
 
   margin-bottom: 20px;
+}
+
+.modal-dialog .button-container {
+  justify-content: flex-end;
+  width: auto;
+}
+
+.modal-dialog .button-container >* {
+  margin-right: 0px;
 }

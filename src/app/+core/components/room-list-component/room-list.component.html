@@ -1,6 +1,6 @@
 <div class="room-list-container">
   <div class="create-room">
-    <button>+</button>
+    <button (click)="roomModal.show()">+</button>
   </div>
   <div class="table-wrapper">
     <div class="head-row">
@@ -27,5 +27,42 @@
   <div class="button-container">
     <button (click)="back()">Back</button>
     <button (click)="joinRoom()">Join</button>
+  </div>
+</div>
+
+<div bsModal #roomModal="bs-modal" class="modal fade" tabindex="0" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+(onShow)="createRoomModal=true"
+(onHidden)="createRoomModal=false">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          Create your own room
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div id="myTabContent1" class="tab-content">
+          <div class="tab-pane fade in active" id="lookup1">
+            <br>
+            <form (ngSubmit)="createRoom()" class="form-inline">
+              <div class="name">
+                <input type="text" placeholder="Name" style="width: 100%; margin-bottom: 1em;" />
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="public">
+                <label class="form-check-label" for="inlineRadio1">public</label>
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="private">
+                <label class="form-check-label" for="inlineRadio2">private</label>
+              </div>
+              <div class="button-container">
+                <button type="button" class="unset btn btn-danger" (click)="roomModal.hide()">Cancel</button>
+                <button type="submit" class="unset btn btn-success" (click)="roomModal.hide()">OK</button>
+              </div>
+            </form>
+            <br/>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
