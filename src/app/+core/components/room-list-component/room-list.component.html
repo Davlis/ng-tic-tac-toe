@@ -10,7 +10,7 @@
     </div>
     <div #roomRef *ngFor="let room of rooms;" (click)="selectRoom(roomRef, room)" [ngClass]="{'selected': selectedRoom === room}" class="row">
       <div class="cell">{{room.name}}</div>
-      <div class="cell">{{room.user.nickname}}</div>
+      <div class="cell">{{room.owner.nickname}}</div>
       <div class="cell">{{room.isFull}}</div>
     </div>
   </div>

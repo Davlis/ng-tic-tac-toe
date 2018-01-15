@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { DataService } from './data.service';
+import { Socket } from 'ng-socket-io';
 
 @Injectable()
 export class UserService {
 
   constructor(private dataService: DataService,
-              private localStorage: LocalStorageService,) { }
+              private localStorage: LocalStorageService,
+              private socket: Socket,) { }
 
   public async login(loginData) {
     const result = await this.dataService.callHandler('POST', 'auth/login', { data: loginData });
@@ -16,6 +18,8 @@ export class UserService {
 
     this.localStorage.store('user', user);
     this.localStorage.store('access', token);
+
+    this.emitStoreClientId()
   }
 
   public async register(registerData) {
@@ -37,6 +41,11 @@ export class UserService {
   public logout() {
     this.localStorage.clear('user');
     this.localStorage.clear('access');
+  }
+
+  public emitStoreClientId() {
+    const userId = this.getUser().id;
+    this.socket.emit('storeClientId', userId);
   }
 
 }

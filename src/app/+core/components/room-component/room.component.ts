@@ -29,7 +29,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     try {
 
       this.room = await this.roomService.getRoom(this.id)
-      this.owner = this.room.user;
+      this.owner = this.room.owner;
 
       const whoAmI = this.userService.getUser()
 
@@ -45,7 +45,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   public setListeners(): void {
-    this.socket.on('startGame', () => { console.log('startGame'); this.onStart.emit('gameStart')})
+    this.socket.on('startGame', () => { this.onStart.emit('gameStart')})
     this.socket.on('roomLeave', this.onRoomLeave.bind(this));
     this.socket.on('roomJoin', this.onRoomJoined.bind(this));
     this.socket.on('roomDestroy', () => this.onLeave.emit('roomLeave'))
@@ -56,6 +56,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   public onRoomLeave(): void {
+    console.log('on room leave')
     this.popUser();
   }
 
