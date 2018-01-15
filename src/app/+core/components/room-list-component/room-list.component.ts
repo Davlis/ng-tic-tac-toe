@@ -1,6 +1,11 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoomService } from '../../services';
+
+export const ROOM_TYPES = {
+  PRIVATE: 'private',
+  PUBLIC: 'public',
+}
 
 @Component({
   selector: 'room-list-component',
@@ -21,9 +26,14 @@ export class RoomListComponent implements OnInit {
   public rooms: any[] = [];
   public createRoomModal: boolean = false;
 
-  public createForm: FormGroup;
+  public createForm: FormGroup = this.formBuilder.group({
+    name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(32)]],
+    type: [ROOM_TYPES.PUBLIC, [Validators.required]],
+  })
 
   public selectedRoom: string = '';
+
+  public ROOM_TYPES: any = ROOM_TYPES;
 
   constructor(private formBuilder: FormBuilder,
               private roomService: RoomService,) { }
@@ -58,7 +68,13 @@ export class RoomListComponent implements OnInit {
     this.onJoin.emit('id');
   }
 
-  public createRoom(): void {
+  public async createRoom() {
+    try {
+      await this.roomService.addRoom(this.createForm.value);
+    } catch(err) {
+      console.error(err);
+    }
+
     this.onCreate.emit('id');
   }
 }

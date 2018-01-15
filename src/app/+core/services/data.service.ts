@@ -59,8 +59,6 @@ export class DataService {
 
       params.url = url;
 
-      console.log(this.auth.getAuthHeader())
-
       this.headers.set('Authorization', this.auth.getAuthHeader());
 
       try { 

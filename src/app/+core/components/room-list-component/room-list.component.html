@@ -34,14 +34,14 @@
         <div id="myTabContent1" class="tab-content">
           <div class="tab-pane fade in active" id="lookup1">
             <br>
-            <form (ngSubmit)="createRoom()" class="form-inline">
+            <form [formGroup]="createForm" (ngSubmit)="createRoom()" class="form-inline">
               <div class="name">
-                <input type="text" placeholder="Name" style="width: 100%; margin-bottom: 1em;" />
+                <input formControlName="name" type="text" placeholder="Name" style="width: 100%; margin-bottom: 1em;" />
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="public">
+                <input [value]="ROOM_TYPES.PUBLIC" [formControl]="createForm.controls.type" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="public">
                 <label class="form-check-label" for="inlineRadio1">public</label>
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="private">
+                <input [value]="ROOM_TYPES.PRIVATE" [formControl]="createForm.controls.type" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="private">
                 <label class="form-check-label" for="inlineRadio2">private</label>
               </div>
               <div class="button-container">
