@@ -35,7 +35,8 @@ export class UserService {
   }
 
   public logout() {
-    
+    this.localStorage.clear('user');
+    this.localStorage.clear('access');
   }
 
 }
