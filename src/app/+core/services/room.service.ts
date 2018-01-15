@@ -25,7 +25,6 @@ export class RoomService {
   }
 
   public async leaveRoom(roomId) {
-    console.log({data: {roomId: roomId}})
     return await this.dataService.callHandler('POST', 'room/leave', { data: { roomId: roomId }});
   }
 
