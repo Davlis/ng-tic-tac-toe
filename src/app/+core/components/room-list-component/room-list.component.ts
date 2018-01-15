@@ -31,7 +31,7 @@ export class RoomListComponent implements OnInit {
     type: [ROOM_TYPES.PUBLIC, [Validators.required]],
   })
 
-  public selectedRoom: string = '';
+  public selectedRoom: any = null;
 
   public ROOM_TYPES: any = ROOM_TYPES;
 
@@ -65,7 +65,7 @@ export class RoomListComponent implements OnInit {
   }
 
   public joinRoom(): void {
-    this.onJoin.emit('id');
+    this.onJoin.emit(this.selectedRoom.id);
   }
 
   public async createRoom() {

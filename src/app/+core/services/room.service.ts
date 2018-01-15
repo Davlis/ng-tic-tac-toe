@@ -11,17 +11,22 @@ export class RoomService {
     return rooms;
   }
 
+  public async getRoom(id) {
+    const endpoint = 'room/'+id;
+    return (await this.dataService.callHandler('GET', endpoint));
+  }
+
   public async addRoom(data) {
     const result = await this.dataService.callHandler('POST', 'room', { data });
     return result;
   }
 
-  public joinRoom() {
-    
+  public joinRoom() { 
   }
 
-  public leaveRoom() {
-
+  public async leaveRoom(roomId) {
+    console.log({data: {roomId: roomId}})
+    return await this.dataService.callHandler('POST', 'room/leave', { data: { roomId: roomId }});
   }
 
   public getInvitationLink() {

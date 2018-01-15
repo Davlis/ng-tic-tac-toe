@@ -85,7 +85,11 @@ export class DataService {
       .post(url, JSON.stringify(data), { headers: this.headers })
       .toPromise()
       .then(response => {
-        return response.json();
+         try {
+           return response.json()
+         } catch(err) {
+           return response;
+         }
       }).catch(err => {
         return this.handleError(err);
       });
