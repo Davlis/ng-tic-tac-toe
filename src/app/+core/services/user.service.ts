@@ -23,7 +23,7 @@ export class UserService {
   }
 
   public isLoggedIn() {
-
+    return this.localStorage.retrieve('user') && this.localStorage.retrieve('access');
   }
 
   public setUser() {

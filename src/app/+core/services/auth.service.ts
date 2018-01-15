@@ -9,7 +9,7 @@ export class AuthService {
 
   getToken() {
     const access = this.localStorage.retrieve('access');
-    return (access && access.token) || '';
+    return access || '';
   }
 
   getExpirationDate() {

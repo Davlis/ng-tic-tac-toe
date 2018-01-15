@@ -8,20 +8,10 @@
       <div class="cell">Owner</div>
       <div class="cell">isFull</div>
     </div>
-    <div class="row selected">
-      <div class="cell">Samplename</div>
-      <div class="cell">SampleUser</div>
-      <div class="cell">Yes</div>
-    </div>
-    <div class="row">
-      <div class="cell">SampleRoomName</div>
-      <div class="cell">SampleUser</div>
-      <div class="cell">Yes</div>
-    </div>
-    <div class="row">
-      <div class="cell">Samplename</div>
-      <div class="cell">SampleUser</div>
-      <div class="cell">Yes</div>
+    <div #roomRef *ngFor="let room of rooms;" (click)="selectRoom(roomRef, room)" class="row">
+      <div class="cell">{{room.name}}</div>
+      <div class="cell">{{room.user.nickname}}</div>
+      <div class="cell">{{room.isFull}}</div>
     </div>
   </div>
   <div class="button-container">

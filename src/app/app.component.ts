@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './+core/services';
 
 export const VIEWS = [
   'landingEnabled',
@@ -12,12 +13,22 @@ export const VIEWS = [
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public landingEnabled: boolean = true;
   public menuEnabled: boolean = false;
   public roomEnabled: boolean = false;
   public boardEnabled: boolean = false;
+
+  constructor(private userService: UserService,) {
+
+  }
+
+  ngOnInit() {
+    if (this.userService.isLoggedIn()) {
+      this.showOnly('menuEnabled');
+    }
+  }
 
   public showLanding(): void {
   }
@@ -62,7 +73,6 @@ export class AppComponent {
     }
 
     if ($event === 'logged') {
-      console.log('here')
       this.showOnly('menuEnabled');
     }
 
