@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { StatsService } from '../../services';
 
 @Component({
   selector: 'stats-list-component',
@@ -10,12 +11,16 @@ export class StatsListComponent implements OnInit {
   @Output()
   public onBack: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  public stats: any[] = [];
+
+  constructor(private statsService: StatsService,) { }
 
   ngOnInit() {
+    this.fetchStats();
   }
 
-  public fetchStats(): void {
+  public async fetchStats() {
+    this.stats = await this.statsService.getStats();
   }
 
   public back(): void {

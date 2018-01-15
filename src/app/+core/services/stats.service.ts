@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
+import { DataService } from './data.service';
 
 @Injectable()
 export class StatsService {
 
-  constructor() { }
+  constructor(private dataService: DataService,) { }
 
-  public getStats() {
-
+  public async getStats() {
+    return await this.dataService.callHandler('GET', 'stat');
   }
 
   public updateStats() {

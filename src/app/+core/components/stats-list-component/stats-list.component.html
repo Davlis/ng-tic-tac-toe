@@ -5,20 +5,10 @@
       <div class="cell">Nickname</div>
       <div class="cell">Win/Lost</div>
     </div>
-    <div class="row">
-      <div class="cell">1</div>
-      <div class="cell">SampleUser</div>
-      <div class="cell">5/1</div>
-    </div>
-    <div class="row">
-      <div class="cell">2</div>
-      <div class="cell">Davelis</div>
-      <div class="cell">3/1</div>
-    </div>
-    <div class="row">
-      <div class="cell">3</div>
-      <div class="cell">Matt</div>
-      <div class="cell">6/1</div>
+    <div *ngFor="let stat of stats; index as i;" class="row">
+      <div class="cell">{{i}}</div>
+      <div class="cell">{{stat.user.nickname}}</div>
+      <div class="cell">{{stat.win}}/{{stat.lose}}</div>
     </div>
   </div>
   <div class="button-container">
