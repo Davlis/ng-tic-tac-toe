@@ -9,7 +9,8 @@ import { Socket } from 'ng-socket-io';
 })
 export class RoomComponent implements OnInit {
 
-  public users: any[] = [];
+  public owner: any = null;
+  public guest: any = null;
 
   public id: string = location.hash.replace('#', '');
   public room: any = {};
@@ -27,7 +28,13 @@ export class RoomComponent implements OnInit {
   async ngOnInit() {
     try {
       this.room = await this.roomService.getRoom(this.id)
-      this.socket.emit('roomJoin', this.room);
+      this.owner = this.room.user;
+
+      console.log(this.socket);
+
+      const whoAmI = this.userService.getUser()
+
+      this.setListeners();
     } catch(err) {
       console.error(err);
       this.onLeave.emit('roomLeave');
@@ -35,12 +42,17 @@ export class RoomComponent implements OnInit {
   }
 
   public setListeners(): void {
-    this.socket.on('roomLeave', this.onRoomLeave);
-    this.socket.on('roomJoin', this.onRoomJoined);
+    this.socket.on('roomLeave', this.onRoomLeave.bind(this));
+    this.socket.on('roomJoin', this.onRoomJoined.bind(this));
+    this.socket.on('roomDestroy', () => {
+      this.onLeave.emit('roomLeave')
+    })
   }
 
-  public onRoomJoined(socket): void {
-    console.log('onRoomJoined', socket);
+  public onRoomJoined(data): void {
+    if (data.id !== this.owner.id) {
+      this.guest = data;
+    }
   }
 
   public onRoomLeave(socket): void {
@@ -61,8 +73,7 @@ export class RoomComponent implements OnInit {
   }
 
   public getInviteLink(): void {
-    const id = location.hash;
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", id.replace('#',''));
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", this.id);
   }
 
   public async leave() {

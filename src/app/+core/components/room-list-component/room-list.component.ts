@@ -37,7 +37,8 @@ export class RoomListComponent implements OnInit {
   public ROOM_TYPES: any = ROOM_TYPES;
 
   constructor(private formBuilder: FormBuilder,
-              private roomService: RoomService,) { }
+              private roomService: RoomService,
+              private socket: Socket,) { }
 
   ngOnInit() {
     this.getRooms();
@@ -65,8 +66,13 @@ export class RoomListComponent implements OnInit {
     this.onBack.emit();
   }
 
-  public joinRoom(): void {
-    this.onJoin.emit(this.selectedRoom.id);
+  public async joinRoom() {
+    try {
+      this.roomService.joinRoom(this.selectedRoom.id, this.socket.ioSocket.id);
+      this.onJoin.emit(this.selectedRoom.id);
+    } catch(err) {
+      console.error(err);
+    }
   }
 
   public async createRoom() {

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
+import { Socket } from 'ng-socket-io';
 
 @Injectable()
 export class RoomService {
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService,
+              private socket: Socket,) { }
 
   public async getRooms() {
     const rooms = await this.dataService.callHandler('GET', 'room');
@@ -21,10 +23,14 @@ export class RoomService {
     return result;
   }
 
-  public joinRoom() { 
+  public async joinRoom(roomId, socketId) { 
+    const endpoint = 'room/join/'+roomId;
+    const result = await this.dataService.callHandler('POST', endpoint, { data: { socketId } });
+    return result;
   }
 
   public async leaveRoom(roomId) {
+    this.socket.emit('roomLeave', roomId)
     return await this.dataService.callHandler('POST', 'room/leave', { data: { roomId: roomId }});
   }
 
