@@ -45,12 +45,10 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   public setListeners(): void {
+    this.socket.on('startGame', () => { console.log('startGame'); this.onStart.emit('gameStart')})
     this.socket.on('roomLeave', this.onRoomLeave.bind(this));
     this.socket.on('roomJoin', this.onRoomJoined.bind(this));
-    this.socket.on('roomDestroy', () => {
-      alert('Owner closed this room')
-      this.onLeave.emit('roomLeave')
-    })
+    this.socket.on('roomDestroy', () => this.onLeave.emit('roomLeave'))
   }
 
   public onRoomJoined(data): void {
@@ -100,6 +98,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.socket.ioSocket.removeAllListeners('roomDestroy');
     this.socket.ioSocket.removeAllListeners('roomLeave');
     this.socket.ioSocket.removeAllListeners('roomJoin');
+    this.socket.ioSocket.removeAllListeners('startGame');
   }
 
 }
