@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { RoomService, UserService } from '../../services';
 import { Socket } from 'ng-socket-io';
 
@@ -7,7 +7,7 @@ import { Socket } from 'ng-socket-io';
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.css']
 })
-export class RoomComponent implements OnInit {
+export class RoomComponent implements OnInit, OnDestroy {
 
   public owner: any = null;
   public guest: any = null;
@@ -53,16 +53,23 @@ export class RoomComponent implements OnInit {
     })
   }
 
-  public onRoomJoined(userData): void {
-    this.addUser(userData);
+  public onRoomJoined(data): void {
+    this.addUser(data);
   }
 
   public onRoomLeave(): void {
     this.popUser();
   }
 
-  public startGame(): void {
-    this.onStart.emit('gameStart');
+  public async startGame() {
+    try {
+      if (this.owner.id === this.userService.getUser().id) {
+        await this.roomService.startGame(this.id)
+        this.onStart.emit('gameStart');
+      }
+    } catch(err) {
+      console.error(err);
+    }
   }
 
   public kickUser(): void {
@@ -87,6 +94,12 @@ export class RoomComponent implements OnInit {
     } catch(err) {
       console.error(err);
     }
+  }
+
+  public ngOnDestroy(): void {
+    this.socket.ioSocket.removeAllListeners('roomDestroy');
+    this.socket.ioSocket.removeAllListeners('roomLeave');
+    this.socket.ioSocket.removeAllListeners('roomJoin');
   }
 
 }

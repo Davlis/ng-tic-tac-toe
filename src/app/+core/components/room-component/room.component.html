@@ -12,8 +12,8 @@
       </div>
       <div class="divider"></div>
       <div *ngIf="guest" class="room-mate">
-        <div class="username">Username #2</div>
-        <div class="stats">Stats</div>
+        <div class="username">{{guest.nickname}}</div>
+        <div class="stats">{{guest.stat.win}}/{{guest.stat.lost}}</div>
         <div class="user-char">O</div>
       </div>
     </div>

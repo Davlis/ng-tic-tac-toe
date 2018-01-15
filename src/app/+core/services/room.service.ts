@@ -31,8 +31,11 @@ export class RoomService {
   }
 
   public async leaveRoom(roomId) {
-    this.socket.emit('roomLeave', roomId)
     return await this.dataService.callHandler('POST', 'room/leave', { data: { roomId: roomId }});
+  }
+
+  public async startGame(roomId) {
+    //return await this.dataService.callHandler('POST', 'room/start/'+roomId, { data : {}});
   }
 
   public getInvitationLink() {
