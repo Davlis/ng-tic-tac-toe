@@ -3,15 +3,15 @@
     <img />
   </div>
   <div class="form-container">
-    <form class="login-form" (submit)="login()">
-      <input type="text" placeholder="Email"/>
-      <input type="password" placeholder="Password"/>
+    <form [formGroup]="loginForm" class="login-form" (ngSubmit)="login()">
+      <input formControlName="email" type="text" placeholder="Email"/>
+      <input formControlName="password" type="password" placeholder="Password"/>
       <button type="submit">Log in</button>
     </form>
-    <form class="register-form" (submit)="register()">
-      <input type="text" placeholder="Email"/>
-      <input type="text" placeholder="Nickname"/>
-      <input type="password" placeholder="Password"/>
+    <form [formGroup]="registerForm" class="register-form" (ngSubmit)="register()">
+      <input formControlName="email" type="text" placeholder="Email"/>
+      <input formControlName="nickname" type="text" placeholder="Nickname"/>
+      <input formControlName="password" type="password" placeholder="Password"/>
       <button type="submit">Register</button>
     </form>
   </div>

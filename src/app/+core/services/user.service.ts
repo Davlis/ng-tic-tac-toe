@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
+import { LocalStorageService } from 'ngx-webstorage';
+import { DataService } from './data.service';
 
 @Injectable()
 export class UserService {
 
-  constructor() { }
+  constructor(private dataService: DataService,
+              private localStorage: LocalStorageService,) { }
 
-  public login() {
+  public async login(loginData) {
+    const result = await this.dataService.callHandler('POST', 'auth/login', { data: loginData });
 
+    const token = result.token,
+      user = result.user;
+
+    this.localStorage.store('user', user);
+    this.localStorage.store('access', token);
   }
 
-  public register() {
-
+  public async register(registerData) {
+    const result = await this.dataService.callHandler('POST', 'auth/register', { data: registerData });
   }
 
   public isLoggedIn() {

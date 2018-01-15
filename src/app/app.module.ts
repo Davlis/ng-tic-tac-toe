@@ -8,6 +8,10 @@ import { AppComponent } from './app.component';
 
 import { CoreModule } from './+core/core.module';
 
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+
+const socketConfig: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +22,7 @@ import { CoreModule } from './+core/core.module';
     ReactiveFormsModule,
     HttpModule,
     Ng2Webstorage,
+    SocketIoModule.forRoot(socketConfig),
     CoreModule,
   ],
   providers: [

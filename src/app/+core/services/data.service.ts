@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import { AuthService } from './auth.service';
 
-export const env = { api_url: 'localhost:8080' };
+export const env = { api_url: 'http://localhost:3000' };
 
 export const methodNames = [
   'get',
@@ -30,6 +30,12 @@ export class DataService {
     return new Promise(async (resolve, reject) => {
 
       let params: any = {};
+
+      if (typeof method !== 'string') {
+        return Promise.reject('Wrong param1 data type');
+      }
+
+      method = method.toLowerCase()
 
       if (methodNames.indexOf(method) === -1) {
         return Promise.reject('Wrong method name');

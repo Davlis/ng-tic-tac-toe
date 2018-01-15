@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services';
 
 @Component({
   selector: 'landing-component',
@@ -22,19 +23,27 @@ export class LandingComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
   });
 
-  constructor(private formBuilder: FormBuilder,) { }
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,) { }
 
   ngOnInit() {
   }
 
-  public register(): void {
-    // for now
-    this.emitSuccess();
+  public async register() {
+    try {
+      await this.userService.register(this.registerForm.value);
+    } catch(err) {
+      console.error(err);
+    }
   }
 
-  public login(): void {
-    // for now
-    this.emitSuccess();
+  public async login() {
+    try {
+      await this.userService.login(this.loginForm.value)
+      this.emitSuccess();
+    } catch(err) {
+      console.error(err);
+    }
   }
 
   public emitSuccess(): void {

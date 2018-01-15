@@ -62,6 +62,7 @@ export class AppComponent {
     }
 
     if ($event === 'logged') {
+      console.log('here')
       this.showOnly('menuEnabled');
     }
 
