@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Socket } from 'ng-socket-io';
 
 @Component({
   selector: 'board-component',
@@ -13,9 +14,10 @@ export class BoardComponent implements OnInit {
   @Output()
   public onGameEnd: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private socket: Socket,) { }
 
   ngOnInit() {
+    console.log(this.socket.ioSocket)
   }
 
   public setListeners(): void {

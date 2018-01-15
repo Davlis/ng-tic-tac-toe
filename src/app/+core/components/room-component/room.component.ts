@@ -61,7 +61,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   public async startGame() {
     try {
-      if (this.owner.id === this.userService.getUser().id) {
+      if (this.owner.id === this.userService.getUser().id && this.guest) {
         await this.roomService.startGame(this.id)
         this.onStart.emit('gameStart');
       }
