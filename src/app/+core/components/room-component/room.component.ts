@@ -48,16 +48,17 @@ export class RoomComponent implements OnInit {
     this.socket.on('roomLeave', this.onRoomLeave.bind(this));
     this.socket.on('roomJoin', this.onRoomJoined.bind(this));
     this.socket.on('roomDestroy', () => {
+      alert('Owner closed this room')
       this.onLeave.emit('roomLeave')
     })
   }
 
-  public onRoomJoined(data): void {
-    this.guest = data;
+  public onRoomJoined(userData): void {
+    this.addUser(userData);
   }
 
   public onRoomLeave(): void {
-    this.guest = null;
+    this.popUser();
   }
 
   public startGame(): void {
@@ -67,10 +68,12 @@ export class RoomComponent implements OnInit {
   public kickUser(): void {
   }
 
-  public addUser(): void {
+  public addUser(userData): void {
+    this.guest = userData;
   }
 
   public popUser(): void {
+    this.guest = null;
   }
 
   public getInviteLink(): void {
