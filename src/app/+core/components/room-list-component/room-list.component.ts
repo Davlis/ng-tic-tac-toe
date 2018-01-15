@@ -68,7 +68,6 @@ export class RoomListComponent implements OnInit {
 
   public async joinRoom() {
     try {
-      this.roomService.joinRoom(this.selectedRoom.id, this.socket.ioSocket.id);
       this.onJoin.emit(this.selectedRoom.id);
     } catch(err) {
       console.error(err);
@@ -77,7 +76,7 @@ export class RoomListComponent implements OnInit {
 
   public async createRoom() {
     try {
-      const room = await this.roomService.addRoom(this.createForm.value);
+      const room = await this.roomService.addRoom(this.createForm.value, this.socket.ioSocket.id);
       this.onCreate.emit(room.id);
     } catch(err) {
       console.error(err);

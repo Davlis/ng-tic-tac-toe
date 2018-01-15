@@ -27,12 +27,15 @@ export class RoomComponent implements OnInit {
 
   async ngOnInit() {
     try {
+
       this.room = await this.roomService.getRoom(this.id)
       this.owner = this.room.user;
 
-      console.log(this.socket);
-
       const whoAmI = this.userService.getUser()
+
+      if (this.owner.id !== whoAmI.id) {
+        this.roomService.joinRoom(this.id, this.socket.ioSocket.id);
+      }
 
       this.setListeners();
     } catch(err) {
@@ -50,13 +53,11 @@ export class RoomComponent implements OnInit {
   }
 
   public onRoomJoined(data): void {
-    if (data.id !== this.owner.id) {
-      this.guest = data;
-    }
+    this.guest = data;
   }
 
-  public onRoomLeave(socket): void {
-    console.log('onRoomLeave', socket);
+  public onRoomLeave(): void {
+    this.guest = null;
   }
 
   public startGame(): void {

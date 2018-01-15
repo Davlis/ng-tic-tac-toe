@@ -18,7 +18,8 @@ export class RoomService {
     return (await this.dataService.callHandler('GET', endpoint));
   }
 
-  public async addRoom(data) {
+  public async addRoom(data, socketId) {
+    data = Object.assign(data, {socketId: socketId})
     const result = await this.dataService.callHandler('POST', 'room', { data });
     return result;
   }
