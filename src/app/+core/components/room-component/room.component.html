@@ -4,10 +4,10 @@
       <button class="start" (click)="startGame()">START</button>
       <button class="invite-link" (click)="getInviteLink()">Copy Invite Link To Clipboard</button>
     </div>
-    <div class="room-mates">
+    <div *ngIf="room" class="room-mates">
       <div class="room-mate">
-        <div class="username">Username #1</div>
-        <div class="stats">Stats</div>
+        <div class="username">{{room.user?.nickname}}</div>
+        <div class="stats">{{room.user?.stats.win}}/{{room.user?.stats.lost}}</div>
         <div class="user-char">X</div>
       </div>
       <div class="divider"></div>

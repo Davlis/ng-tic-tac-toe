@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoomService } from '../../services';
+import { Socket } from 'ng-socket-io';
 
 export const ROOM_TYPES = {
   PRIVATE: 'private',

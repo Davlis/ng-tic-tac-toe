@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { RoomService, UserService } from '../../services';
+import { Socket } from 'ng-socket-io';
 
 @Component({
   selector: 'room-component',
@@ -13,7 +14,6 @@ export class RoomComponent implements OnInit {
   public id: string = location.hash.replace('#', '');
   public room: any = {};
 
-
   @Output()
   public onLeave: EventEmitter<any> = new EventEmitter();
 
@@ -21,19 +21,30 @@ export class RoomComponent implements OnInit {
   public onStart: EventEmitter<any> = new EventEmitter();
 
   constructor(private roomService: RoomService,
-              private userService: UserService,) { }
+              private userService: UserService,
+              private socket: Socket,) { }
 
   async ngOnInit() {
-    this.room = await this.roomService.getRoom(this.id)
+    try {
+      this.room = await this.roomService.getRoom(this.id)
+      this.socket.emit('roomJoin', this.room);
+    } catch(err) {
+      console.error(err);
+      this.onLeave.emit('roomLeave');
+    }
   }
 
   public setListeners(): void {
+    this.socket.on('roomLeave', this.onRoomLeave);
+    this.socket.on('roomJoin', this.onRoomJoined);
   }
 
-  public onRoomJoined(): void {
+  public onRoomJoined(socket): void {
+    console.log('onRoomJoined', socket);
   }
 
-  public onRoomLeave(): void {
+  public onRoomLeave(socket): void {
+    console.log('onRoomLeave', socket);
   }
 
   public startGame(): void {
