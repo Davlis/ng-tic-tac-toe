@@ -26,12 +26,12 @@ export class UserService {
     return this.localStorage.retrieve('user') && this.localStorage.retrieve('access');
   }
 
-  public setUser() {
-
+  public setUser(userData) {
+    this.localStorage.store('user', userData)
   }
 
   public getUser() {
-
+    return this.localStorage.retrieve('user');
   }
 
   public logout() {

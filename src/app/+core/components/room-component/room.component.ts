@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { RoomService } from '../../services';
+import { RoomService, UserService } from '../../services';
 
 @Component({
   selector: 'room-component',
@@ -20,7 +20,8 @@ export class RoomComponent implements OnInit {
   @Output()
   public onStart: EventEmitter<any> = new EventEmitter();
 
-  constructor(private roomService: RoomService,) { }
+  constructor(private roomService: RoomService,
+              private userService: UserService,) { }
 
   async ngOnInit() {
     this.room = await this.roomService.getRoom(this.id)

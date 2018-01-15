@@ -70,11 +70,10 @@ export class RoomListComponent implements OnInit {
 
   public async createRoom() {
     try {
-      await this.roomService.addRoom(this.createForm.value);
+      const room = await this.roomService.addRoom(this.createForm.value);
+      this.onCreate.emit(room.id);
     } catch(err) {
       console.error(err);
     }
-
-    this.onCreate.emit('id');
   }
 }
