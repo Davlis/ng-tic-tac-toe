@@ -12,8 +12,9 @@ export class GameService {
     
   }
 
-  public makeMove() {
-
+  public async setGameState(gameId, state) {
+    const endpoint = 'game/state/' + gameId
+    return (await this.dataService.callHandler('POST', endpoint, { data: {state}}));
   }
 
   public checkWinner() {

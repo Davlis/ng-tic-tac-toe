@@ -47,13 +47,10 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public setListeners(): void {
     this.socket.on('playerMove', () => {
-
-      console.log('playerMove')
-
       this.state.canMove = true;
     })
 
-    this.socket.on('nextState', (state) => {
+    this.socket.on('newState', (state) => {
       this.state = state;
     })
   }
@@ -92,6 +89,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public setGameState(state): void {
     this.state = state;
+    this.gameService.setGameState(this.gameId, this.state)
   }
 
   private createRange(i): number[] {
