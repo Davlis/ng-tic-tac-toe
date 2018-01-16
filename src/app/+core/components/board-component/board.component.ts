@@ -53,6 +53,10 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.socket.on('newState', (state) => {
       this.state = state;
     })
+
+    this.socket.on('gameLeft', () => {
+
+    })
   }
 
   public makeMove(): void {
@@ -66,6 +70,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+
     if(!this.state.canMove || this.calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -125,7 +130,8 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.socket.ioSocket.removeAllListeners('playerMove');
-    this.socket.ioSocket.removeAllListeners('nextState');
+    this.socket.ioSocket.removeAllListeners('newState');
+    this.socket.ioSocket.removeAllListeners('gameLeft');
   }
 
 }
