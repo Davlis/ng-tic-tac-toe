@@ -57,6 +57,10 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.socket.on('gameLeft', () => {
 
     })
+
+    this.socket.on('gameWin', () => {alert('You won.')});
+    this.socket.on('gameLose', () => {alert('You lost.')});
+    this.socket.on('gameDraw', () => {alert('Draw.')});
   }
 
   public makeMove(): void {
