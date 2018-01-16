@@ -3,7 +3,7 @@
     <div class="game-board">
       <div>
         <div class="board-row" *ngFor="let i of createRange(3); index as _i" [attr.data-index]="_i">
-          <div class="square" *ngFor="let j of createRange(3); index as _j" [attr.data-index]="_j" (click)="renderMove(_i, _j)"></div>
+          <div class="square" *ngFor="let j of createRange(3); index as _j" [attr.data-index]="3*_i + _j" (click)="renderMove(3*_i + _j)">{{state.current[3*_i + _j]}}</div>
         </div>
       </div>
     </div>

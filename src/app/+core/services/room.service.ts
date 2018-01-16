@@ -37,7 +37,7 @@ export class RoomService {
 
   public async startGame(roomId) {
     console.log('room/start/'+roomId)
-    return await this.dataService.callHandler('POST', 'room/start/'+roomId, { data : {}});
+    return await this.dataService.callHandler('POST', 'room/start/' + roomId, { data : {}});
   }
 
   public getInvitationLink() {

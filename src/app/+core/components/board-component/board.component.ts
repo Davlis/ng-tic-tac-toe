@@ -1,26 +1,61 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { RoomService, GameService } from '../../services';
 import { Socket } from 'ng-socket-io';
+
+export const ICONS = {
+  OWNER: 'X',
+  GUEST: 'O',
+}
+
+export const defaultState = {
+  history: [{
+    squares: Array(9).fill(null),
+  }],
+  current: Array(9).fill(null),
+  xIsNext: true,
+  stepNumber: 0,
+  canMove: false,
+}
 
 @Component({
   selector: 'board-component',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
 
   public user1Moves: any[] = [];
   public user2Moves: any[] = [];
 
+  public who: any
+  public state: any = JSON.parse(JSON.stringify(defaultState));
+
   @Output()
   public onGameEnd: EventEmitter<any> = new EventEmitter();
 
-  constructor(private socket: Socket,) { }
+  public gameId: string = location.hash.replace('#', '').split('/')[1]
 
-  ngOnInit() {
-    console.log(this.socket.ioSocket)
+  constructor(private socket: Socket,
+              private roomService: RoomService,
+              private gameService: GameService,) {
+  }
+
+  async ngOnInit() {
+    this.setListeners();
+    await this.gameService.acknowledge(this.gameId);
   }
 
   public setListeners(): void {
+    this.socket.on('playerMove', () => {
+
+      console.log('playerMove')
+
+      this.state.canMove = true;
+    })
+
+    this.socket.on('nextState', (state) => {
+      this.state = state;
+    })
   }
 
   public makeMove(): void {
@@ -29,26 +64,34 @@ export class BoardComponent implements OnInit {
   public onMove(): void {
   }
 
-  public renderMove(x, y): void {
+  public renderMove(i): void {
 
-    const boardRows = document.getElementsByClassName('board-row');
-
-    let square = boardRows[x].firstElementChild;
-
-    for (let i = 0; i < 3; ++i) {
-
-      if (square.attributes['data-index'].value === ""+y) {
-        square['innerHTML'] = 'X';
-        break;
-      }
-      square = square.nextElementSibling;
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+    if(!this.state.canMove || this.calculateWinner(squares) || squares[i]) {
+      return;
     }
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    const state = {
+      history: history.concat([{
+        squares: squares,
+      }]),
+      current: squares,
+      stepNumber: history.length,
+      xIsNext: !this.state.xIsNext,
+      canMove: false
+    }
+
+    this.setGameState(state);
   }
 
-  public canMove(): void {
+  public canMove() {
+    return this.state.canMove;
   }
 
-  public setGameState(): void {
+  public setGameState(state): void {
+    this.state = state;
   }
 
   private createRange(i): number[] {
@@ -59,6 +102,32 @@ export class BoardComponent implements OnInit {
     }
 
     return arr;
+  }
+
+  private calculateWinner(squares) {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for(let i=0; i < lines.length; ++i) {
+      const [a, b, c] = lines[i];
+      if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        return squares[a];
+      }
+    }
+    return null;
+  }
+
+  ngOnDestroy() {
+    this.socket.ioSocket.removeAllListeners('playerMove');
+    this.socket.ioSocket.removeAllListeners('nextState');
   }
 
 }
