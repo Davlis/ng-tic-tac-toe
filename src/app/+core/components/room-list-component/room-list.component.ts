@@ -30,7 +30,7 @@ export class RoomListComponent implements OnInit {
   public createForm: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(32)]],
     type: [ROOM_TYPES.PUBLIC, [Validators.required]],
-  })
+  });
 
   public selectedRoom: any = null;
 
@@ -69,7 +69,7 @@ export class RoomListComponent implements OnInit {
   public async joinRoom() {
     try {
       this.onJoin.emit(this.selectedRoom.id);
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
   }

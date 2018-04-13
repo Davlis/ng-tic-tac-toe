@@ -56,7 +56,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
 
     this.socket.on('gameLeft', () => {
-
+      console.log('gameLeft');
     });
 
     this.socket.on('gameWin', () => { alert('You won.'); this.onGameEndEmit(); });

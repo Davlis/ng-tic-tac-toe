@@ -28,22 +28,22 @@ export class RoomComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     try {
 
-      this.room = await this.roomService.getRoom(this.id)
+      this.room = await this.roomService.getRoom(this.id);
       this.owner = this.room.owner;
 
       if (location.hash.includes('backTo')) {
-        location.hash = location.hash.replace('/backTo', '')
+        location.hash = location.hash.replace('/backTo', '');
         this.guest = this.room.guest;
       }
 
-      const whoAmI = this.userService.getUser()
+      const whoAmI = this.userService.getUser();
 
-      if (this.owner.id !== whoAmI.id) {
+      if (this.owner.id !== whoAmI.id && this.room.isFull === false) {
         this.roomService.joinRoom(this.id, this.socket.ioSocket.id);
       }
 
       this.setListeners();
-    } catch(err) {
+    } catch (err) {
       console.error(err);
       this.onLeave.emit('roomLeave');
     }
@@ -51,12 +51,12 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   public setListeners(): void {
     this.socket.on('startGame', (id) => {
-      location.hash += '/'+id;
-      this.onStart.emit('gameStart')
-    })
+      location.hash += '/' + id;
+      this.onStart.emit('gameStart');
+    });
     this.socket.on('roomLeave', this.onRoomLeave.bind(this));
     this.socket.on('roomJoin', this.onRoomJoined.bind(this));
-    this.socket.on('roomDestroy', () => this.onLeave.emit('roomLeave'))
+    this.socket.on('roomDestroy', () => this.onLeave.emit('roomLeave'));
   }
 
   public onRoomJoined(data): void {
@@ -64,16 +64,16 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   public onRoomLeave(): void {
-    console.log('on room leave')
+    console.log('on room leave');
     this.popUser();
   }
 
   public async startGame() {
     try {
       if (this.owner.id === this.userService.getUser().id && this.guest) {
-        await this.roomService.startGame(this.id)
+        await this.roomService.startGame(this.id);
       }
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
   }
@@ -90,14 +90,14 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   public getInviteLink(): void {
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", this.id);
+    window.prompt('Copy to clipboard: Ctrl+C, Enter', this.id);
   }
 
   public async leave() {
     try {
       await this.roomService.leaveRoom(this.id);
       this.onLeave.emit('roomLeave');
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
   }
