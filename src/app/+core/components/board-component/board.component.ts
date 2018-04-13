@@ -5,7 +5,7 @@ import { Socket } from 'ng-socket-io';
 export const ICONS = {
   OWNER: 'X',
   GUEST: 'O',
-}
+};
 
 export const defaultState = {
   history: [{
@@ -15,7 +15,7 @@ export const defaultState = {
   xIsNext: true,
   stepNumber: 0,
   canMove: false,
-}
+};
 
 @Component({
   selector: 'board-component',
@@ -27,7 +27,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   public user1Moves: any[] = [];
   public user2Moves: any[] = [];
 
-  public who: any
+  public who: any;
   public state: any = JSON.parse(JSON.stringify(defaultState));
 
   @Output()
@@ -49,23 +49,23 @@ export class BoardComponent implements OnInit, OnDestroy {
   public setListeners(): void {
     this.socket.on('playerMove', () => {
       this.state.canMove = true;
-    })
+    });
 
     this.socket.on('newState', (state) => {
       this.state = state;
-    })
+    });
 
     this.socket.on('gameLeft', () => {
 
-    })
+    });
 
-    this.socket.on('gameWin', () => {alert('You won.'); this.onGameEndEmit();});
-    this.socket.on('gameLose', () => {alert('You lost.'); this.onGameEndEmit();});
-    this.socket.on('gameDraw', () => {alert('Draw.'); this.onGameEndEmit();});
+    this.socket.on('gameWin', () => { alert('You won.'); this.onGameEndEmit(); });
+    this.socket.on('gameLose', () => { alert('You lost.'); this.onGameEndEmit(); });
+    this.socket.on('gameDraw', () => { alert('Draw.'); this.onGameEndEmit(); });
   }
 
   public onGameEndEmit() {
-    this.onGameEnd.emit(this.roomId)
+    this.onGameEnd.emit(this.roomId);
   }
 
   public makeMove(): void {
@@ -80,7 +80,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    if(!this.state.canMove || this.calculateWinner(squares) || squares[i]) {
+    if (!this.state.canMove || this.calculateWinner(squares) || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
@@ -92,7 +92,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
       canMove: false
-    }
+    };
 
     this.setGameState(state);
   }
@@ -107,10 +107,10 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   private createRange(i): number[] {
-    const arr = []
+    const arr = [];
 
-    while(i--) { 
-      arr.push(i); 
+    while (i--) {
+      arr.push(i);
     }
 
     return arr;
@@ -128,9 +128,9 @@ export class BoardComponent implements OnInit, OnDestroy {
       [2, 4, 6],
     ];
 
-    for(let i=0; i < lines.length; ++i) {
+    for (let i = 0; i < lines.length; ++i) {
       const [a, b, c] = lines[i];
-      if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
         return squares[a];
       }
     }
@@ -141,6 +141,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.socket.ioSocket.removeAllListeners('playerMove');
     this.socket.ioSocket.removeAllListeners('newState');
     this.socket.ioSocket.removeAllListeners('gameLeft');
+    this.socket.ioSocket.removeAllListeners('gameWin');
+    this.socket.ioSocket.removeAllListeners('gameLose');
+    this.socket.ioSocket.removeAllListeners('gameDraw');
   }
 
 }
