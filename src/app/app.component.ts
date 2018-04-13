@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './+core/services';
-import { Socket } from 'ng-socket-io';
 
 export const VIEWS = [
   'landingEnabled',
@@ -21,15 +20,14 @@ export class AppComponent implements OnInit {
   public roomEnabled: boolean = false;
   public boardEnabled: boolean = false;
 
-  constructor(private userService: UserService,
-              private socket: Socket,) {
+  constructor(private userService: UserService) {
 
   }
 
   ngOnInit() {
     if (this.userService.isLoggedIn()) {
       this.showOnly('menuEnabled');
-      this.userService.emitStoreClientId();
+      this.userService.socketInit();
     }
   }
 

@@ -19,7 +19,7 @@ export class UserService {
     this.localStorage.store('user', user);
     this.localStorage.store('access', token);
 
-    this.emitStoreClientId();
+    this.socketInit();
   }
 
   public async register(registerData) {
@@ -41,9 +41,11 @@ export class UserService {
   public logout() {
     this.localStorage.clear('user');
     this.localStorage.clear('access');
+    this.socket.disconnect();
   }
 
-  public emitStoreClientId() {
+  public socketInit() {
+    this.socket.connect();
     const userId = this.getUser().id;
     this.socket.emit('storeClientId', userId);
   }
