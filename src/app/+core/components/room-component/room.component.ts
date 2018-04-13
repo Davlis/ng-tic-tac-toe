@@ -33,6 +33,8 @@ export class RoomComponent implements OnInit, OnDestroy {
 
       if (location.hash.includes('backTo')) {
         location.hash = location.hash.replace('/backTo', '');
+
+        console.log('backTo', this.room.guest);
         this.guest = this.room.guest;
       }
 
