@@ -68,7 +68,11 @@ export class RoomListComponent implements OnInit {
 
   public async joinRoom() {
     try {
-      this.onJoin.emit(this.selectedRoom.id);
+      if (!this.selectedRoom.isFull) {
+        this.onJoin.emit(this.selectedRoom.id);
+      } else {
+        alert('Room is full');
+      }
     } catch (err) {
       console.error(err);
     }
