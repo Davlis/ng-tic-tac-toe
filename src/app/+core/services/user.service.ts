@@ -19,7 +19,7 @@ export class UserService {
     this.localStorage.store('user', user);
     this.localStorage.store('access', token);
 
-    this.emitStoreClientId()
+    this.emitStoreClientId();
   }
 
   public async register(registerData) {
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   public setUser(userData) {
-    this.localStorage.store('user', userData)
+    this.localStorage.store('user', userData);
   }
 
   public getUser() {

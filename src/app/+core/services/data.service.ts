@@ -13,11 +13,11 @@ export const methodNames = [
   'put',
   'patch',
   'delete'
-]
+];
 
 @Injectable()
 export class DataService {
-  
+
   private headers = new Headers({
     'Content-Type': 'application/json',
     'Authorization': ''
@@ -29,7 +29,7 @@ export class DataService {
   callHandler(method: string, endpoint: string, options?: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
 
-      let params: any = {};
+      const params: any = {};
 
       if (typeof method !== 'string') {
         return Promise.reject('Wrong param1 data type');
@@ -61,9 +61,9 @@ export class DataService {
 
       this.headers.set('Authorization', this.auth.getAuthHeader());
 
-      try { 
+      try {
         resolve(await this[method](params));
-      } catch(err) {
+      } catch (err) {
         reject(err);
       }
 
@@ -86,8 +86,8 @@ export class DataService {
       .toPromise()
       .then(response => {
          try {
-           return response.json()
-         } catch(err) {
+           return response.json();
+         } catch (err) {
            return response;
          }
       }).catch(err => {
@@ -125,14 +125,12 @@ export class DataService {
 
   private getQuery(query) {
     let q = '?';
-    for(let key in query) {
-      if(query.hasOwnProperty(key)) {
+    for (const key in query) {
+      if (query.hasOwnProperty(key)) {
         q += key + '=' + query[key] + '&';
       }
     }
-
     q = q.substr(0, q.length - 1);
-
     return q;
   }
 

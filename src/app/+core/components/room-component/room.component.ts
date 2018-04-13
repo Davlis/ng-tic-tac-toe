@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output, Input } from '@angular/core';
 import { RoomService, UserService } from '../../services';
 import { Socket } from 'ng-socket-io';
 
@@ -12,7 +12,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   public owner: any = null;
   public guest: any = null;
 
-  public id: string = location.hash.replace('#', '');
+  public id: string = location.hash.replace('#', '').split('/')[0]
   public room: any = {};
 
   @Output()
@@ -30,6 +30,11 @@ export class RoomComponent implements OnInit, OnDestroy {
 
       this.room = await this.roomService.getRoom(this.id)
       this.owner = this.room.owner;
+
+      if (location.hash.includes('backTo')) {
+        location.hash = location.hash.replace('/backTo', '')
+        this.guest = this.room.guest;
+      }
 
       const whoAmI = this.userService.getUser()
 

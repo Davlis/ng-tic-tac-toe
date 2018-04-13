@@ -9,11 +9,11 @@ export class GameService {
               private socket: Socket,) { }
 
   public registerListeners() {
-    
+
   }
 
   public async setGameState(gameId, state) {
-    const endpoint = 'game/state/' + gameId
+    const endpoint = 'game/state/' + gameId;
     return (await this.dataService.callHandler('POST', endpoint, { data: {state}}));
   }
 
@@ -22,11 +22,11 @@ export class GameService {
   }
 
   public checkIfValidMove() {
-    
+
   }
 
   public async acknowledge(gameId) {
-    const endpoint = 'game/acknowledge/'+gameId;
+    const endpoint = 'game/acknowledge/' + gameId;
     return (await this.dataService.callHandler('GET', endpoint));
   }
 

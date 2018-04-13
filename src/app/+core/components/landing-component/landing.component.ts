@@ -32,7 +32,7 @@ export class LandingComponent implements OnInit {
   public async register() {
     try {
       await this.userService.register(this.registerForm.value);
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
   }

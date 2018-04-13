@@ -78,7 +78,7 @@ export class RoomListComponent implements OnInit {
     try {
       const room = await this.roomService.addRoom(this.createForm.value, this.socket.ioSocket.id);
       this.onCreate.emit(room.id);
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
   }

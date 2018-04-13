@@ -2,4 +2,4 @@
 <landing-component *ngIf="landingEnabled" (onSuccess)="viewChangeListener($event)"></landing-component>
 <room-component *ngIf="roomEnabled" (onLeave)="viewChangeListener($event)" (onStart)="viewChangeListener($event)"></room-component>
 <menu-component *ngIf="menuEnabled" (showRoom)="viewChangeListener('showRoom'+$event)"></menu-component>
-<board-component *ngIf="boardEnabled"></board-component>
+<board-component (onGameEnd)="viewChangeListener('backTo'+$event)" *ngIf="boardEnabled"></board-component>

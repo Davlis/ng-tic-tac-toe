@@ -14,29 +14,29 @@ export class RoomService {
   }
 
   public async getRoom(id) {
-    const endpoint = 'room/'+id;
+    const endpoint = 'room/' + id;
     return (await this.dataService.callHandler('GET', endpoint));
   }
 
   public async addRoom(data, socketId) {
-    data = Object.assign(data, {socketId: socketId})
+    data = Object.assign(data, { socketId: socketId });
     const result = await this.dataService.callHandler('POST', 'room', { data });
     return result;
   }
 
-  public async joinRoom(roomId, socketId) { 
-    const endpoint = 'room/join/'+roomId;
+  public async joinRoom(roomId, socketId) {
+    const endpoint = 'room/join/' + roomId;
     const result = await this.dataService.callHandler('POST', endpoint, { data: { socketId } });
     return result;
   }
 
   public async leaveRoom(roomId) {
-    this.socket.emit('roomLeave', roomId)
+    this.socket.emit('roomLeave', roomId);
     return await this.dataService.callHandler('POST', 'room/leave', { data: { roomId: roomId }});
   }
 
   public async startGame(roomId) {
-    console.log('room/start/'+roomId)
+    console.log('room/start/' + roomId);
     return await this.dataService.callHandler('POST', 'room/start/' + roomId, { data : {}});
   }
 
@@ -44,7 +44,7 @@ export class RoomService {
   }
 
   public registerListeners() {
-    
+
   }
 
 }

@@ -7,10 +7,10 @@ export const VIEWS = [
   'menuEnabled',
   'roomEnabled',
   'boardEnabled', 
-]
+];
 
 @Component({
-  selector: 'app-root',
+  selector: 'ar-app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -29,26 +29,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     if (this.userService.isLoggedIn()) {
       this.showOnly('menuEnabled');
-      this.userService.emitStoreClientId()
+      this.userService.emitStoreClientId();
     }
-  }
-
-  public showLanding(): void {
-  }
-
-  public showMenu(): void {
-  }
-
-  public showRoom(id): void {
-  }
-
-  public showBoard(): void {
-  }
-
-  public dispatchViews(): void {
-  }
-
-  public back(): void {
   }
 
   private showOnly(view) {
@@ -62,6 +44,11 @@ export class AppComponent implements OnInit {
   }
 
   public viewChangeListener($event): void {
+
+    if ($event.includes('backTo')) {
+      location.hash += '/backTo';
+      this.showOnly('roomEnabled');
+    }
 
     if ($event.includes('showRoom')) {
       const id = $event.replace('showRoom', '');

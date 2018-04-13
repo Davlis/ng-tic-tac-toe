@@ -33,7 +33,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   @Output()
   public onGameEnd: EventEmitter<any> = new EventEmitter();
 
-  public gameId: string = location.hash.replace('#', '').split('/')[1]
+  public gameId: string = location.hash.replace('#', '').split('/')[1];
+  public roomId: string = location.hash.replace('#', '').split('/')[0];
 
   constructor(private socket: Socket,
               private roomService: RoomService,
@@ -58,9 +59,13 @@ export class BoardComponent implements OnInit, OnDestroy {
 
     })
 
-    this.socket.on('gameWin', () => {alert('You won.')});
-    this.socket.on('gameLose', () => {alert('You lost.')});
-    this.socket.on('gameDraw', () => {alert('Draw.')});
+    this.socket.on('gameWin', () => {alert('You won.'); this.onGameEndEmit();});
+    this.socket.on('gameLose', () => {alert('You lost.'); this.onGameEndEmit();});
+    this.socket.on('gameDraw', () => {alert('Draw.'); this.onGameEndEmit();});
+  }
+
+  public onGameEndEmit() {
+    this.onGameEnd.emit(this.roomId)
   }
 
   public makeMove(): void {
