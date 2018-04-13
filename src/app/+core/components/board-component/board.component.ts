@@ -33,6 +33,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   @Output()
   public onGameEnd: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  public onGameDestroy: EventEmitter<any> = new EventEmitter();
+
   public gameId: string = location.hash.replace('#', '').split('/')[1];
   public roomId: string = location.hash.replace('#', '').split('/')[0];
 
@@ -55,9 +58,8 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.state = state;
     });
 
-    this.socket.on('gameLeft', () => {
-      console.log('gameLeft');
-    });
+    this.socket.on('roomDestroy', () => { alert('Owner left a room'); this.onGameDestroyEmit(); })
+    this.socket.on('roomLeave', () => { alert('User left a room'); this.onGameEndEmit(); })
 
     this.socket.on('gameWin', () => { alert('You won.'); this.onGameEndEmit(); });
     this.socket.on('gameLose', () => { alert('You lost.'); this.onGameEndEmit(); });
@@ -66,6 +68,10 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public onGameEndEmit() {
     this.onGameEnd.emit(this.roomId);
+  }
+
+  public onGameDestroyEmit() {
+    this.onGameDestroy.emit('roomLeave');
   }
 
   public makeMove(): void {
